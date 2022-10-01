@@ -12,23 +12,31 @@ public class Character {
     private Image sprite[];
     private boolean enable;
 
+    private Color color;
+
     public Character(){
 
     }
 
-    public Character(String name, int xPosition, int yPosition) {
+    public Character(int xPosition, int yPosition) {
         this.name = "Pokemon";
-        this.speed = 4;
+        this.speed = 10;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.setSprite("Pokemon");
         this.orientation = 2;
         this.enable = true;
+        this.color = Color.BLACK;
     }
-    
-    //Methods
-    public boolean moveAlong(int steps, int screenWidth, int screenHeight){
-        return false;
+
+    public void turnRight(){
+        if(orientation < 3) orientation +=1;
+        else this.orientation = 0;
+    }
+
+    public void turnLeft(){
+        if(orientation > 0) orientation -=1;
+        else this.orientation = 3;
     }
 
     //Getters y setters
@@ -101,5 +109,17 @@ public class Character {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public void setSprite(Image[] sprite) {
+        this.sprite = sprite;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

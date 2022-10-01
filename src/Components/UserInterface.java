@@ -9,7 +9,7 @@ public class UserInterface extends JFrame {
 
     private Canvas canvas;
     private JPanel background;
-    private JScrollPane commandConsole;
+    private JTextArea commandConsole;
     private JButton execute;
     private Border defaultBorder = BorderFactory.createEtchedBorder(0, new Color(0,128,131,255), Color.black);
     public UserInterface(int width, int height){
@@ -21,7 +21,7 @@ public class UserInterface extends JFrame {
     private void createComponents(){
         this.canvas = new Canvas();
         this.background = new JPanel();
-        this.commandConsole = new JScrollPane();
+        this.commandConsole = new JTextArea();
         this.execute = new JButton();
     }
 
@@ -36,6 +36,8 @@ public class UserInterface extends JFrame {
         initCommandConsole();
 
         initButtons();
+
+        initCharacter();
 
         this.setVisible(true);
     }
@@ -54,15 +56,14 @@ public class UserInterface extends JFrame {
 
     private void initCommandConsole(){
         this.commandConsole.setBorder(defaultBorder);
-        JTextArea txtArea = new JTextArea();
-        commandConsole.setViewportView(txtArea);
-        commandConsole.setBounds(
+        JScrollPane jsp = new JScrollPane(this.commandConsole);
+        jsp.setBounds(
                 this.canvas.getX(),
                 this.canvas.getY() + this.canvas.getHeight() + 10,
                 this.canvas.getWidth() -100,
                 this.canvas.getHeight() / 5
         );
-        this.background.add(this.commandConsole);
+        this.background.add(jsp);
     }
 
     private void initCanvas(){
@@ -72,6 +73,8 @@ public class UserInterface extends JFrame {
                 this.getWidth()-180,
                 this.getHeight()-210
         );
+        canvas.getXs().add(canvas.getWidth()/2);
+        canvas.getYs().add(canvas.getHeight()/2);
         canvas.setBackground(Color.WHITE);
         canvas.setBorder(this.defaultBorder);
         background.add(canvas);
@@ -89,4 +92,48 @@ public class UserInterface extends JFrame {
         this.background.add(this.execute);
     }
 
+    private void initCharacter(){
+        Character character = new Character(this.canvas.getWidth()/2 - 30, this.canvas.getHeight()/2 - 42);
+        this.canvas.setCharacter(character);
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public void setCanvas(Canvas canvas) {
+        this.canvas = canvas;
+    }
+
+    public JPanel getbackground() {
+        return background;
+    }
+
+    public void setBackground(JPanel background) {
+        this.background = background;
+    }
+
+    public JTextArea getCommandConsole() {
+        return commandConsole;
+    }
+
+    public void setCommandConsole(JTextArea commandConsole) {
+        this.commandConsole = commandConsole;
+    }
+
+    public JButton getExecute() {
+        return execute;
+    }
+
+    public void setExecute(JButton execute) {
+        this.execute = execute;
+    }
+
+    public Border getDefaultBorder() {
+        return defaultBorder;
+    }
+
+    public void setDefaultBorder(Border defaultBorder) {
+        this.defaultBorder = defaultBorder;
+    }
 }
