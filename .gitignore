@@ -1,3 +1,9 @@
 .idea/
 out/
 draw_with_commands.iml
+/build/
+build
+nbproject
+test
+build.xml
+manifest.mf
