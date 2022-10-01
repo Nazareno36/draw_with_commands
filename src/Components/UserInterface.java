@@ -3,6 +3,7 @@ package Components;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class UserInterface extends JFrame {
@@ -73,8 +74,10 @@ public class UserInterface extends JFrame {
                 this.getWidth()-180,
                 this.getHeight()-210
         );
-        canvas.getXs().add(canvas.getWidth()/2);
-        canvas.getYs().add(canvas.getHeight()/2);
+        Point p = new Point(this.canvas.getWidth() / 2, this.canvas.getHeight() / 2);
+        ArrayList<Point> currentDraw = new ArrayList<>();
+        currentDraw.add(p);
+        canvas.getDraws().add(currentDraw);
         canvas.setBackground(Color.WHITE);
         canvas.setBorder(this.defaultBorder);
         background.add(canvas);
