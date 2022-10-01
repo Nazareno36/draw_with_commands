@@ -9,23 +9,23 @@ public class Character {
     private int xPosition;
     private int yPosition;
     private int orientation;
-    private Image sprite;
+    private Image sprite[];
     private boolean enable;
 
     public Character(){
 
     }
 
-    public Character(String name, int speed, int xPosition, int yPosition, Image sprite) {
-        this.name = name;
-        this.speed = speed;
+    public Character(String name, int xPosition, int yPosition) {
+        this.name = "Pokemon";
+        this.speed = 4;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        this.sprite = sprite;
+        this.setSprite("Pokemon");
         this.orientation = 3;
         this.enable = true;
     }
-
+    
     //Methods
     public boolean moveAlong(int steps, int screenWidth, int screenHeight){
         return false;
@@ -72,12 +72,28 @@ public class Character {
         this.orientation = orientation;
     }
 
-    public Image getSprite() {
+    public Image[] getSprite() {
         return sprite;
     }
 
-    public void setSprite(Image sprite) {
-        this.sprite = sprite;
+    public void setSprite(String carpet) {
+        String ruta_down = "src/Sprites/"+ carpet +"/down_Pokemon.png";
+        String ruta_left = "src/Sprites/"+ carpet +"/left_Pokemon.png";
+        String ruta_right = "src/Sprites/"+ carpet +"/right_Pokemon.png";
+        String ruta_up = "src/Sprites/"+ carpet +"/up_Pokemon.png";
+        
+        Toolkit t_down = Toolkit.getDefaultToolkit();
+        Image image_down = t_down.getImage(ruta_down);
+        Toolkit t_left = Toolkit.getDefaultToolkit();
+        Image image_left = t_left.getImage(ruta_left);
+        Toolkit t_right = Toolkit.getDefaultToolkit();
+        Image image_right = t_right.getImage(ruta_right);
+        Toolkit t_up = Toolkit.getDefaultToolkit();
+        Image image_up = t_up.getImage(ruta_up);
+        
+        Image new_sprite[] = {image_down, image_left, image_right, image_up};
+        this.sprite = new_sprite;
+        
     }
 
     public boolean isEnable() {
