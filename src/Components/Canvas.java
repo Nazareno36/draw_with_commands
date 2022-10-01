@@ -14,10 +14,14 @@ public class Canvas extends JPanel {
         this.character = character;
     }
 
+    private void drawCharacter(Graphics g){
+        g.drawImage(character.getSprite()[character.getOrientation()], character.getxPosition(), character.getyPosition(), 30, 30, this);
+    }
+    
     @Override
     public void paint(Graphics g){
         super.paint(g);
-
+        this.drawCharacter(g);
     }
 
     //Getters and Setters

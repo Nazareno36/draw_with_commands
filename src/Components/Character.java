@@ -22,7 +22,7 @@ public class Character {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.setSprite("Pokemon");
-        this.orientation = 3;
+        this.orientation = 2;
         this.enable = true;
     }
     
@@ -91,9 +91,8 @@ public class Character {
         Toolkit t_up = Toolkit.getDefaultToolkit();
         Image image_up = t_up.getImage(ruta_up);
         
-        Image new_sprite[] = {image_down, image_left, image_right, image_up};
+        Image new_sprite[] = {image_up, image_right, image_down, image_left};
         this.sprite = new_sprite;
-        
     }
 
     public boolean isEnable() {
