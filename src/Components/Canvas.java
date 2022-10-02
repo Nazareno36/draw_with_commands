@@ -1,6 +1,6 @@
 package Components;
 
-import Components.Character;
+import Components.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Canvas extends JPanel {
     private Character character;
-    private ArrayList<ArrayList<Point>> draws;
+    private ArrayList<ArrayList<Line>> draws;
 
     public Canvas(){
         this.character = character;
@@ -21,14 +21,14 @@ public class Canvas extends JPanel {
     }
 
     private void draw(Graphics g){
-        for(ArrayList<Point> points : this.draws){
-            int[] xs = new int[points.size()];
-            int[] ys = new int[points.size()];
+        for(ArrayList<Line> points : this.draws){
             for(int i = 0; i < points.size(); i ++){
-                xs[i] = points.get(i).x;
-                ys[i] = points.get(i).y;
+                if(points.get(i).getPoint2() != null){
+                    g.setColor(points.get(i).getColor());
+                    g.drawLine(points.get(i).getPoint1().x, points.get(i).getPoint1().y,
+                        points.get(i).getPoint2().x, points.get(i).getPoint2().y);
+                }
             }
-            g.drawPolyline(xs,ys, xs.length);
         }
     }
     
@@ -93,95 +93,113 @@ public class Canvas extends JPanel {
 
     private void updateDraws(int orientation, int displacement){
         if(orientation == 0){
-            ArrayList<Point> currentDraw1 = draws.get(draws.size() - 1);
-            int newY = currentDraw1.get(currentDraw1.size() - 1).y - displacement;
+            ArrayList<Line> currentDraw1 = draws.get(draws.size() - 1);
+            
+            Line line = new Line(new Point(currentDraw1.get(currentDraw1.size() - 1).getPoint2().x, 
+                    currentDraw1.get(currentDraw1.size() - 1).getPoint2().y),
+                    null, character.getColor());
+            int newY = line.getPoint1().y - displacement;
             if(newY < 0){
-
                 newY = Math.abs(newY);
-                currentDraw1.add(new Point(currentDraw1.get(currentDraw1.size() - 1).x, 0));
+                line.setPoint2(new Point(line.getPoint1().x, 0));
+                currentDraw1.add(line);
 
-                ArrayList<Point> currentDraw2 = new ArrayList<>();
-                currentDraw2.add(new Point(currentDraw1.get(currentDraw1.size() - 1).x, this.getHeight()));
-                currentDraw2.add(new Point(currentDraw1.get(currentDraw1.size() - 1).x, this.getHeight() -newY));
+                ArrayList<Line> currentDraw2 = new ArrayList<>();
+                currentDraw2.add(new Line(new Point(line.getPoint1().x, this.getHeight()),
+                        new Point(line.getPoint1().x, this.getHeight() -newY), character.getColor()));
+
                 this.draws.add(currentDraw2);
             }
             else {
-                currentDraw1.add(new Point(
-                        currentDraw1.get(currentDraw1.size() - 1).x,
-                        newY
-                ));
+                line.setPoint2(new Point(line.getPoint1().x,newY));
+                currentDraw1.add(line);
             }
         }else if(orientation == 1){
-            ArrayList<Point> currentDraw1 = draws.get(draws.size() - 1);
-            int newX = currentDraw1.get(currentDraw1.size() - 1).x + displacement;
+            ArrayList<Line> currentDraw1 = draws.get(draws.size() - 1);
+            
+            Line line = new Line(new Point(currentDraw1.get(currentDraw1.size() - 1).getPoint2().x, 
+                    currentDraw1.get(currentDraw1.size() - 1).getPoint2().y),
+                    null, character.getColor());
+            
+            int newX = line.getPoint1().x + displacement;
             if(newX > this.getWidth()){
                 newX = newX - this.getWidth();
-                currentDraw1.add(new Point(this.getWidth(), currentDraw1.get(currentDraw1.size() - 1).y));
+                line.setPoint2(new Point(this.getWidth(), line.getPoint1().y));
+                currentDraw1.add(line);
 
-                ArrayList<Point> currentDraw2 = new ArrayList<>();
-                currentDraw2.add(new Point(0, currentDraw1.get(currentDraw1.size() - 1).y));
-                currentDraw2.add(new Point(newX, currentDraw1.get(currentDraw1.size() - 1).y));
+                ArrayList<Line> currentDraw2 = new ArrayList<>();
+                currentDraw2.add(new Line(new Point(0, line.getPoint1().y),
+                        new Point(newX, line.getPoint1().y), character.getColor()));
+                
                 this.draws.add(currentDraw2);
 
             }else{
-                currentDraw1.add(new Point(
-                        newX,
-                        currentDraw1.get(currentDraw1.size() - 1).y
-                ));
+                line.setPoint2(new Point(newX, line.getPoint1().y));
+                currentDraw1.add(line);
             }
         }else if(orientation == 2){
-            ArrayList<Point> currentDraw1 = draws.get(draws.size() - 1);
-            int newY = currentDraw1.get(currentDraw1.size() - 1).y + displacement;
+            ArrayList<Line> currentDraw1 = draws.get(draws.size() - 1);
+            
+            Line line = new Line(new Point(currentDraw1.get(currentDraw1.size() - 1).getPoint2().x, 
+                    currentDraw1.get(currentDraw1.size() - 1).getPoint2().y),
+                    null, character.getColor());
+            int newY = line.getPoint1().y + displacement;
             if(newY > this.getHeight()){
-
                 newY = newY - this.getHeight();
-                currentDraw1.add(new Point(currentDraw1.get(currentDraw1.size() - 1).x, this.getHeight()));
+                line.setPoint2(new Point(line.getPoint1().x, this.getHeight()));
+                currentDraw1.add(line);
 
-                ArrayList<Point> currentDraw2 = new ArrayList<>();
-                currentDraw2.add(new Point(currentDraw1.get(currentDraw1.size() - 1).x, 0));
-                currentDraw2.add(new Point(currentDraw1.get(currentDraw1.size() - 1).x, newY));
+                ArrayList<Line> currentDraw2 = new ArrayList<>();
+                currentDraw2.add(new Line(new Point(line.getPoint1().x, 0),
+                        new Point(line.getPoint1().x, newY), character.getColor()));
+
                 this.draws.add(currentDraw2);
             }
             else {
-                currentDraw1.add(new Point(
-                        currentDraw1.get(currentDraw1.size() - 1).x,
-                        newY
-                ));
+                line.setPoint2(new Point(line.getPoint1().x, newY));
+                currentDraw1.add(line);
             }
         }else if(orientation == 3) {
-            ArrayList<Point> currentDraw1 = draws.get(draws.size() - 1);
-            int newX = currentDraw1.get(currentDraw1.size() - 1).x - displacement;
-            if (newX < 0) {
+            ArrayList<Line> currentDraw1 = draws.get(draws.size() - 1);
+            
+            Line line = new Line(new Point(currentDraw1.get(currentDraw1.size() - 1).getPoint2().x, 
+                    currentDraw1.get(currentDraw1.size() - 1).getPoint2().y),
+                    null, character.getColor());
+            
+            int newX = line.getPoint1().x - displacement;
+            if(newX < 0){
                 newX = Math.abs(newX);
-                currentDraw1.add(new Point(0, currentDraw1.get(currentDraw1.size() - 1).y));
+                line.setPoint2(new Point(0, line.getPoint1().y));
+                currentDraw1.add(line);
 
-                ArrayList<Point> currentDraw2 = new ArrayList<>();
-                currentDraw2.add(new Point(this.getWidth(), currentDraw1.get(currentDraw1.size() - 1).y));
-                currentDraw2.add(new Point(this.getWidth() - newX, currentDraw1.get(currentDraw1.size() - 1).y));
+                ArrayList<Line> currentDraw2 = new ArrayList<>();
+                currentDraw2.add(new Line(new Point(this.getWidth(), line.getPoint1().y),
+                        new Point(this.getWidth() - newX, line.getPoint1().y), character.getColor()));
+                
                 this.draws.add(currentDraw2);
 
-            } else {
-                currentDraw1.add(new Point(
-                        newX,
-                        currentDraw1.get(currentDraw1.size() - 1).y
-                ));
+            }else{
+                line.setPoint2(new Point(newX, line.getPoint1().y));
+                currentDraw1.add(line);
             }
         }
     }
 
     public void clean(){
-        Point p = draws.get(draws.size() - 1).get(draws.get(draws.size() - 1).size() - 1);
+        Point p = draws.get(draws.size() - 1).get(draws.get(draws.size() - 1).size() - 1).getPoint2();
+        Line line = new Line(p, p, character.getColor());
         this.draws.clear();
-        ArrayList<Point> currentDraw = new ArrayList<>();
-        currentDraw.add(p);
+        ArrayList<Line> currentDraw = new ArrayList<>();
+        currentDraw.add(line);
         this.draws.add(currentDraw);
     }
 
     public void reset(){
         Point p = new Point(this.getWidth() / 2, this.getHeight() / 2);
         this.draws.clear();
-        ArrayList<Point> currentDraw = new ArrayList<>();
-        currentDraw.add(p);
+        Line line = new Line(p, p, character.getColor());
+        ArrayList<Line> currentDraw = new ArrayList<>();
+        currentDraw.add(line);
         this.draws.add(currentDraw);
 
         character.setxPosition(this.getWidth()/2 - 30);
@@ -191,13 +209,14 @@ public class Canvas extends JPanel {
 
     public void upPencil(){
         character.setEnable(false);
-        ArrayList<Point> currentDraw = new ArrayList<>();
+        ArrayList<Line> currentDraw = new ArrayList<>();
         this.getDraws().add(currentDraw);
     }
 
     public void downPencil(){
         Point p = new Point(character.getxPosition() + 30, character.getyPosition() + 42);
-        this.getDraws().get(this.getDraws().size() - 1).add(p);
+        Line line = new Line(p, p, character.getColor());
+        this.getDraws().get(this.getDraws().size() - 1).add(line);
         character.setEnable(true);
     }
 
@@ -217,11 +236,12 @@ public class Canvas extends JPanel {
         this.character = character;
     }
 
-    public ArrayList<ArrayList<Point>> getDraws() {
+    public ArrayList<ArrayList<Line>> getDraws() {
         return draws;
     }
 
-    public void setDraws(ArrayList<ArrayList<Point>> draws) {
+    public void setDraws(ArrayList<ArrayList<Line>> draws) {
         this.draws = draws;
     }
+    
 }

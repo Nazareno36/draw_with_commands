@@ -3,6 +3,8 @@ package Components;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
@@ -12,6 +14,7 @@ public class UserInterface extends JFrame {
     private JPanel background;
     private JTextArea commandConsole;
     private JButton execute;
+    private JButton color;
     private Border defaultBorder = BorderFactory.createEtchedBorder(0, new Color(0,128,131,255), Color.black);
     public UserInterface(int width, int height){
         this.setSize(width,height);
@@ -24,6 +27,7 @@ public class UserInterface extends JFrame {
         this.background = new JPanel();
         this.commandConsole = new JTextArea();
         this.execute = new JButton();
+        this.color = new JButton();
     }
 
     private void initComponents() {
@@ -75,8 +79,9 @@ public class UserInterface extends JFrame {
                 this.getHeight()-210
         );
         Point p = new Point(this.canvas.getWidth() / 2, this.canvas.getHeight() / 2);
-        ArrayList<Point> currentDraw = new ArrayList<>();
-        currentDraw.add(p);
+        ArrayList<Line> currentDraw = new ArrayList<>();
+        Line line = new Line(p, p, Color.black);
+        currentDraw.add(line);
         canvas.getDraws().add(currentDraw);
         canvas.setBackground(Color.WHITE);
         canvas.setBorder(this.defaultBorder);
@@ -93,6 +98,21 @@ public class UserInterface extends JFrame {
                 60
         );
         this.background.add(this.execute);
+        
+        this.color.setBorder(defaultBorder);
+        this.color.setBounds(15, 20, 120, 120);
+        this.color.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == color){
+                    JColorChooser colorChooser = new JColorChooser();
+                    Color color = JColorChooser.showDialog(null, "Seleccione un color para el lapiz", Color.black);
+                    canvas.getCharacter().setColor(color);
+                }
+            }
+        });
+        
+        this.background.add(color);
     }
 
     private void initCharacter(){
