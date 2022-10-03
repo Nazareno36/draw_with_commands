@@ -114,7 +114,7 @@ public class Character {
         Image image_up = t_up.getImage(ruta_up);
         
         Image new_sprite[] = {image_up, image_right, image_down, image_left};
-            this.sprite = new_sprite;
+        this.sprite = new_sprite;
             
     }
 
