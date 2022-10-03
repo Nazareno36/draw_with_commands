@@ -49,9 +49,9 @@ public class UserInterface extends JFrame {
 
         initCanvas();
 
-        initButtons();
-
         initCommandConsole();
+
+        initButtons();
 
         initCharacter();
 
@@ -72,20 +72,22 @@ public class UserInterface extends JFrame {
     private void initCommandConsole(){
         JScrollPane jsp = new JScrollPane(this.commandConsole);
         jsp.setBounds(
-                this.canvas.getX(),
-                this.canvas.getY() + this.canvas.getHeight() + 10,
-                this.canvas.getWidth() -100,
-                this.canvas.getHeight() / 5
+                this.canvas.getX() + (int)(this.canvas.getWidth() * 0.06),
+                this.canvas.getY() + (int)(this.getHeight() * 0.723055556),
+                (int)(this.canvas.getWidth() * 0.88),
+                (int)(this.canvas.getHeight() * 0.2)
         );
+        this.commandConsole.setBounds(jsp.getBounds());
+        System.out.println(jsp.getHeight());
         this.background.add(jsp);
     }
 
     private void initCanvas(){
         canvas.setBounds(
-                120,
-                20,
-                this.getWidth()-180,
-                this.getHeight()-210
+                (int)(this.getWidth()* 0.09375),
+                (int)(this.getHeight() * 0.027777778),
+                (int)(this.getWidth() * 0.859375),
+                (int)(this.getHeight() * 0.70)
         );
         Point p = new Point(this.canvas.getWidth() / 2, this.canvas.getHeight() / 2);
         ArrayList<Line> currentDraw = new ArrayList<>();
@@ -98,14 +100,19 @@ public class UserInterface extends JFrame {
     private void initButtons(){
         initThemeButton();
         initInstructionsButton();
-        initColorsButton();
         initCharactersButton();
+        initColorsButton();
         initExecuteButton();
         initTrashButton();
     }
 
     private void initInstructionsButton(){
-        this.instructions.setBounds(20,100,80,80);
+        this.instructions.setBounds(
+                (int)(this.getWidth() * 0.015625),
+                this.canvas.getY() + (int)(this.canvas.getHeight() *0.15),
+                (int)(this.getWidth() * 0.0625),
+                (int)(this.getWidth() * 0.0625)
+        );
         this.instructions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,16 +127,21 @@ public class UserInterface extends JFrame {
     private void initExecuteButton(){
         this.execute.setBackground(Color.green);
         this.execute.setBounds(
-                this.canvas.getWidth() + this.canvas.getX() - 80,
-                this.canvas.getHeight() + this.canvas.getY() + 35,
-                60,
-                60
+                (int)(this.canvas.getWidth() * 0.95) + this.canvas.getX(),
+                this.commandConsole.getY() + (this.commandConsole.getHeight()/2 - (int)(this.canvas.getWidth()*0.05)/2),
+                (int)(this.canvas.getWidth() * 0.05),
+                (int)(this.canvas.getWidth() * 0.05)
         );
         this.background.add(this.execute);
     }
 
     private void initColorsButton(){
-        this.colors.setBounds(20, 220, 80, 80);
+        this.colors.setBounds(
+                (int)(this.getWidth() * 0.015625),
+                this.canvas.getY() + (int)(this.canvas.getHeight() * 0.5) - (int)(this.getWidth() * 0.0625)/2,
+                (int)(this.getWidth() * 0.0625),
+                (int)(this.getWidth() * 0.0625)
+        );
         this.colors.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,8 +157,12 @@ public class UserInterface extends JFrame {
     }
 
     private void initCharactersButton(){
-        this.characters.setBounds(20,340,80,80);
-        JFrame frame = this;
+        this.characters.setBounds(
+                (int)(this.getWidth() * 0.015625),
+                this.canvas.getY() + (int)(this.canvas.getHeight() *0.85) - (int)(this.getWidth() * 0.0625),
+                (int)(this.getWidth() * 0.0625),
+                (int)(this.getWidth() * 0.0625)
+        );
         this.characters.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -159,7 +175,12 @@ public class UserInterface extends JFrame {
     }
 
     private void initThemeButton(){
-        this.theme.setBounds(this.getWidth() - 50, 25,42,42);
+        this.theme.setBounds(
+                (int)(this.getWidth() * 0.9609375),
+                (int)(this.getHeight() * 0.034722222),
+                (int)(this.getWidth() * 0.0328125),
+                (int)(this.getWidth() * 0.0328125)
+        );
         this.theme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -173,11 +194,11 @@ public class UserInterface extends JFrame {
     private void initTrashButton(){
         this.trash.setBackground(Color.red);
         this.trash.setBounds(
-                this.canvas.getX() - 100,
-                this.canvas.getHeight() -this.canvas.getY() + 60,
-                80,
-                80
-                );
+                this.canvas.getX(),
+                this.commandConsole.getY() + (this.commandConsole.getHeight()/2 - (int)(this.canvas.getWidth()*0.05)/2),
+                (int)(this.canvas.getWidth() * 0.05),
+                (int)(this.canvas.getWidth() * 0.05)
+        );
         this.trash.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -185,7 +206,6 @@ public class UserInterface extends JFrame {
                     commandConsole.setText("");
             }
         });
-        System.out.println(trash.getBounds());
         this.background.add(this.trash);
     }
 
@@ -195,10 +215,17 @@ public class UserInterface extends JFrame {
     }
 
     private void changeTheme(){
+        this.setVisible(false);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if(this.background.getBackground() == Color.white)
             setAppTheme(Color.black, customBorder,Color.DARK_GRAY,Color.white,new Font("Monospaced", 1, 12),Color.green);
         else
             setAppTheme(Color.white, defaultBorder,Color.pink,Color.gray,new Font("Monospaced", 1, 12),Color.DARK_GRAY);
+        this.setVisible(true);
     }
 
     private void setAppTheme(Color background, Border border, Color console, Color canvas, Font font, Color fontColor){
