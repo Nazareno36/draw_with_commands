@@ -21,6 +21,7 @@ public class UserInterface extends JFrame {
     private JButton trash;
     private Border defaultBorder = BorderFactory.createEtchedBorder(0, new Color(0,128,131,255), Color.black);
     private Border customBorder =  BorderFactory.createEtchedBorder(0, Color.red, Color.DARK_GRAY);
+    
     public UserInterface(int width, int height){
         this.setSize(width,height);
         createComponents();
@@ -58,7 +59,7 @@ public class UserInterface extends JFrame {
     }
 
     private void initGui(){
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
 
@@ -162,12 +163,11 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625),
                 (int)(this.getWidth() * 0.0625)
         );
-
         this.characters.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == characters){
-
+                    new CharacterChooser(frame);
                 }
             }
         });
