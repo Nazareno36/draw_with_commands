@@ -19,13 +19,13 @@ public class Character {
     }
 
     public Character(int xPosition, int yPosition) {
-        this.name = "Pokemon";
+        this.name = "Goku";
         this.speed = 10;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        this.setSprite("Pokemon");
-        this.orientation = 2;
         this.enable = true;
+        this.setSprite("Goku");
+        this.orientation = 2;
         this.color = Color.BLACK;
     }
 
@@ -46,6 +46,7 @@ public class Character {
 
     public void setName(String name) {
         this.name = name;
+        this.setSprite(name);
     }
 
     public int getSpeed() {
@@ -85,10 +86,23 @@ public class Character {
     }
 
     public void setSprite(String carpet) {
-        String ruta_down = "src/Sprites/"+ carpet +"/down_Pokemon.png";
-        String ruta_left = "src/Sprites/"+ carpet +"/left_Pokemon.png";
-        String ruta_right = "src/Sprites/"+ carpet +"/right_Pokemon.png";
-        String ruta_up = "src/Sprites/"+ carpet +"/up_Pokemon.png";
+        this.name = carpet;
+        String ruta_down;
+        String ruta_left;
+        String ruta_right;
+        String ruta_up;
+        
+        if(this.enable){
+            ruta_down = "src/Sprites/"+ carpet +"/down_" + carpet + ".png";
+            ruta_left = "src/Sprites/"+ carpet +"/left_" + carpet + ".png";
+            ruta_right = "src/Sprites/"+ carpet +"/right_" + carpet + ".png";
+            ruta_up = "src/Sprites/"+ carpet +"/up_" + carpet + ".png";
+        } else {
+            ruta_down = "src/Sprites/"+ carpet +"/disable_down_" + carpet + ".png";
+            ruta_left = "src/Sprites/"+ carpet +"/disable_left_" + carpet + ".png";
+            ruta_right = "src/Sprites/"+ carpet +"/disable_right_" + carpet + ".png";
+            ruta_up = "src/Sprites/"+ carpet +"/disable_up_" + carpet + ".png"; 
+        }
         
         Toolkit t_down = Toolkit.getDefaultToolkit();
         Image image_down = t_down.getImage(ruta_down);
@@ -100,7 +114,8 @@ public class Character {
         Image image_up = t_up.getImage(ruta_up);
         
         Image new_sprite[] = {image_up, image_right, image_down, image_left};
-        this.sprite = new_sprite;
+            this.sprite = new_sprite;
+            
     }
 
     public boolean isEnable() {

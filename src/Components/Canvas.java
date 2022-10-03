@@ -4,7 +4,6 @@ import Components.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Canvas extends JPanel {
@@ -12,12 +11,11 @@ public class Canvas extends JPanel {
     private ArrayList<ArrayList<Line>> draws;
 
     public Canvas(){
-        this.character = character;
         this.draws = new ArrayList<>();
     }
 
     private void drawCharacter(Graphics g){
-        g.drawImage(character.getSprite()[character.getOrientation()], character.getxPosition(), character.getyPosition(), 30, 42, this);
+        g.drawImage(character.getSprite()[character.getOrientation()], character.getxPosition(), character.getyPosition(), 30, 46, this);
     }
 
     private void draw(Graphics g){
@@ -36,8 +34,8 @@ public class Canvas extends JPanel {
     public void paint(Graphics g){
         super.paint(g);
         g.setColor(character.getColor());
-        this.drawCharacter(g);
         draw(g);
+        this.drawCharacter(g);
     }
 
     public void moveAlong(int steps){
@@ -209,6 +207,7 @@ public class Canvas extends JPanel {
 
     public void upPencil(){
         character.setEnable(false);
+        this.character.setSprite(this.character.getName());
         ArrayList<Line> currentDraw = new ArrayList<>();
         this.getDraws().add(currentDraw);
     }
@@ -218,6 +217,7 @@ public class Canvas extends JPanel {
         Line line = new Line(p, p, character.getColor());
         this.getDraws().get(this.getDraws().size() - 1).add(line);
         character.setEnable(true);
+        this.character.setSprite(this.character.getName());
     }
 
     public void tp(int x, int y){
