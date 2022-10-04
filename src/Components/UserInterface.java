@@ -19,15 +19,17 @@ public class UserInterface extends JFrame {
     private JButton characters;
     private JButton instructions;
     private JButton trash;
+
     private JDialog instructionsDialog;
-    private Border defaultBorder = BorderFactory.createEtchedBorder(0, new Color(0,128,131,255), Color.black);
-    private Border customBorder =  BorderFactory.createEtchedBorder(0, Color.red, Color.DARK_GRAY);
+    private Border defaultBorder = BorderFactory.createEtchedBorder(0, new Color(0, 128, 105), new Color(0, 128, 105));
+
     
     public UserInterface(int width, int height){
         this.setSize(width,height);
         createComponents();
         initComponents();
-        setAppTheme(Color.white, defaultBorder,Color.pink,Color.gray,new Font("Monospaced", 1, 12),Color.DARK_GRAY);
+        setAppTheme(Color.white, defaultBorder, new Color(0, 128, 105), this.canvas.getBackground(), 
+                    new Font("Monospaced", 1, 12), new Color(255, 254, 255));
     }
 
     private void createComponents(){
@@ -235,8 +237,14 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.9609375),
                 (int)(this.getHeight() * 0.034722222),
                 (int)(this.getWidth() * 0.0328125),
-                (int)(this.getWidth() * 0.0328125)
+                (int)((this.getWidth() * 0.0328125) * 0.75)
         );
+        this.theme.setBackground(Color.white);
+        ImageIcon wallpaper = new ImageIcon("src/Icons/light_mode.png");
+            Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.theme.getWidth(),
+                    this.theme.getHeight(), Image.SCALE_DEFAULT));
+        this.theme.setIcon(icon);
+        
         this.theme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -277,10 +285,24 @@ public class UserInterface extends JFrame {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        if(this.background.getBackground() == Color.white)
-            setAppTheme(Color.black, customBorder,Color.DARK_GRAY,Color.white,new Font("Monospaced", 1, 12),Color.green);
-        else
-            setAppTheme(Color.white, defaultBorder,Color.pink,Color.gray,new Font("Monospaced", 1, 12),Color.DARK_GRAY);
+        if(this.background.getBackground() == Color.white){
+            setAppTheme(new Color(17, 30, 39), BorderFactory.createEtchedBorder(0, new Color(8, 186, 162), new Color(8, 186, 162))
+                    ,new Color(32, 45, 54), this.canvas.getBackground(), new Font("Monospaced", 1, 12),new Color(167, 175, 177));
+            ImageIcon wallpaper = new ImageIcon("src/Icons/dark_mode.png");
+            Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.theme.getWidth(),
+                    this.theme.getHeight(), Image.SCALE_DEFAULT));
+            this.theme.setIcon(icon);
+            this.theme.setBackground(new Color(17, 30, 39));
+            
+        }else{
+            setAppTheme(Color.white, defaultBorder, new Color(0, 128, 105), this.canvas.getBackground(), 
+                    new Font("Monospaced", 1, 12), new Color(255, 254, 255));
+            ImageIcon wallpaper = new ImageIcon("src/Icons/light_mode.png");
+            Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.theme.getWidth(),
+                    this.theme.getHeight(), Image.SCALE_DEFAULT));
+            this.theme.setIcon(icon);
+            this.theme.setBackground(Color.white);
+        }
         this.setVisible(true);
     }
 
