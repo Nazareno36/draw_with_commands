@@ -1,7 +1,6 @@
 package Components;
 
-import java.awt.Frame;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,8 +16,8 @@ public class CharacterChooser extends JDialog{
     private JPanel background;
     private JScrollPane scroll;
     
-    public CharacterChooser(Frame owner) {
-        super(owner);
+    public CharacterChooser(Frame parent) {
+        super(parent, false);
         this.background = new JPanel();
         initComponents();
     }
@@ -34,13 +33,13 @@ public class CharacterChooser extends JDialog{
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Selecciona el personaje");
-        this.setBounds(180 / 2, 210 / 2, this.getOwner().getWidth() -180, this.getOwner().getHeight()-210);
+        this.setBounds((int)(this.getParent().getWidth() *0.3), (int)(this.getParent().getHeight() *0.3), (int)(this.getParent().getWidth() *0.46875), (int)(this.getParent().getHeight() * 0.37));
         this.setVisible(true);
     }
     
     private void initScroll(){
         this.scroll = new JScrollPane(this.background);
-        this.scroll.setBounds(0, 0, this.getOwner().getWidth() -180, this.getOwner().getHeight()-210);
+        this.scroll.setBounds(0, 0,this.getWidth(),this.getHeight());
         this.getContentPane().add(scroll);
     }
     
@@ -51,13 +50,11 @@ public class CharacterChooser extends JDialog{
     private void initCharactersButtons(){
         File carpeta = new File("src/Sprites"); 
         File[] list = carpeta.listFiles();
-        
-        int x = 10;
-        int y = 10;
+        this.background.setLayout(new GridLayout(4,list.length/4));
         for (File file : list) {
             
             JButton button = new JButton();
-            button.setBounds(x, y, 100, 100);
+            button.setBounds(0, 0, 100, 100);
             String name = file.getName();
             button.setName(name);
             
@@ -77,11 +74,6 @@ public class CharacterChooser extends JDialog{
                     }
                 }
             });
-            x += 150;
-            if(x > 160) {
-                y += 150;
-                x = 10;
-            }
             this.background.add(button);
         }
     }
