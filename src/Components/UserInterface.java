@@ -191,7 +191,7 @@ public class UserInterface extends JFrame {
         this.execute.setBackground(Color.green);
         this.execute.setBounds(
                 (int)(this.canvas.getWidth() * 0.95) + this.canvas.getX(),
-                this.commandConsole.getY() + (this.commandConsole.getHeight()/2 - (int)(this.canvas.getWidth()*0.05)/2),
+                (int)(this.getHeight() * 0.78),
                 (int)(this.canvas.getWidth() * 0.05),
                 (int)(this.canvas.getWidth() * 0.05)
         );
@@ -279,7 +279,7 @@ public class UserInterface extends JFrame {
         this.trash.setBackground(Color.red);
         this.trash.setBounds(
                 this.canvas.getX(),
-                this.commandConsole.getY() + (this.commandConsole.getHeight()/2 - (int)(this.canvas.getWidth()*0.05)/2),
+                (int)(this.getHeight() * 0.78),
                 (int)(this.canvas.getWidth() * 0.05),
                 (int)(this.canvas.getWidth() * 0.05)
         );
