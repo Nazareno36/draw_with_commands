@@ -169,6 +169,12 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625),
                 (int)(this.getWidth() * 0.0625)
         );
+        ImageIcon wallpaper = new ImageIcon("src/Icons/instructions.png");
+            Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.instructions.getWidth(),
+                    this.instructions.getHeight(), Image.SCALE_DEFAULT));
+        this.instructions.setIcon(icon);
+        this.instructions.setBackground(this.background.getBackground());
+        
         this.instructions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -199,6 +205,13 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625),
                 (int)(this.getWidth() * 0.0625)
         );
+        
+        ImageIcon wallpaper = new ImageIcon("src/Icons/palette_color.png");
+            Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.colors.getWidth(),
+                    this.colors.getHeight(), Image.SCALE_DEFAULT));
+        this.colors.setIcon(icon);
+        this.colors.setBackground(this.background.getBackground());
+        
         this.colors.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -220,6 +233,13 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625),
                 (int)(this.getWidth() * 0.0625)
         );
+                
+        ImageIcon wallpaper = new ImageIcon("src/Icons/character.png");
+            Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.characters.getWidth(),
+                    this.characters.getHeight(), Image.SCALE_DEFAULT));
+        this.characters.setIcon(icon);
+        this.characters.setBackground(this.background.getBackground());
+        
         JFrame frame = this;
         this.characters.addActionListener(new ActionListener() {
             @Override
@@ -263,6 +283,12 @@ public class UserInterface extends JFrame {
                 (int)(this.canvas.getWidth() * 0.05),
                 (int)(this.canvas.getWidth() * 0.05)
         );
+        
+        ImageIcon wallpaper = new ImageIcon("src/Icons/trash.png");
+            Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.trash.getWidth(),
+                    this.trash.getHeight(), Image.SCALE_DEFAULT));
+        this.trash.setIcon(icon);
+        
         this.trash.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -321,6 +347,9 @@ public class UserInterface extends JFrame {
         this.canvas.setBackground(canvas);
         this.commandConsole.setFont(font);
         this.commandConsole.setForeground(fontColor);
+        this.instructions.setBackground(background);
+        this.characters.setBackground(background);
+        this.colors.setBackground(background);
     }
 
     public Canvas getCanvas() {
