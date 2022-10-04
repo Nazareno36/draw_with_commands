@@ -169,6 +169,7 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625),
                 (int)(this.getWidth() * 0.0625)
         );
+        this.instructions.setCursor(new Cursor(Cursor.HAND_CURSOR));
         ImageIcon wallpaper = new ImageIcon("src/Icons/instructions.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.instructions.getWidth(),
                     this.instructions.getHeight(), Image.SCALE_DEFAULT));
@@ -188,13 +189,18 @@ public class UserInterface extends JFrame {
     }
 
     private void initExecuteButton(){
-        this.execute.setBackground(Color.green);
         this.execute.setBounds(
                 (int)(this.canvas.getWidth() * 0.95) + this.canvas.getX(),
                 (int)(this.getHeight() * 0.78),
                 (int)(this.canvas.getWidth() * 0.05),
                 (int)(this.canvas.getWidth() * 0.05)
         );
+        ImageIcon wallpaper = new ImageIcon("src/Icons/execute.png");
+        Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.execute.getWidth(),
+                this.execute.getHeight(), Image.SCALE_DEFAULT));
+        this.characters.setBackground(this.background.getBackground());
+        this.execute.setIcon(icon);
+        this.execute.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.background.add(this.execute);
     }
 
@@ -205,7 +211,7 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625),
                 (int)(this.getWidth() * 0.0625)
         );
-        
+        this.colors.setCursor(new Cursor(Cursor.HAND_CURSOR));
         ImageIcon wallpaper = new ImageIcon("src/Icons/palette_color.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.colors.getWidth(),
                     this.colors.getHeight(), Image.SCALE_DEFAULT));
@@ -233,7 +239,7 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625),
                 (int)(this.getWidth() * 0.0625)
         );
-                
+        this.characters.setCursor(new Cursor(Cursor.HAND_CURSOR));
         ImageIcon wallpaper = new ImageIcon("src/Icons/character.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.characters.getWidth(),
                     this.characters.getHeight(), Image.SCALE_DEFAULT));
@@ -259,6 +265,7 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0328125),
                 (int)((this.getWidth() * 0.0328125) * 0.75)
         );
+        this.theme.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.theme.setBackground(Color.white);
         ImageIcon wallpaper = new ImageIcon("src/Icons/light_mode.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.theme.getWidth(),
@@ -283,7 +290,7 @@ public class UserInterface extends JFrame {
                 (int)(this.canvas.getWidth() * 0.05),
                 (int)(this.canvas.getWidth() * 0.05)
         );
-        
+        this.trash.setCursor(new Cursor(Cursor.HAND_CURSOR));
         ImageIcon wallpaper = new ImageIcon("src/Icons/trash.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.trash.getWidth(),
                     this.trash.getHeight(), Image.SCALE_DEFAULT));
@@ -335,11 +342,13 @@ public class UserInterface extends JFrame {
     private void setAppTheme(Color background, Border border, Color console, Color canvas, Font font, Color fontColor){
         this.background.setBackground(background);
         this.background.setBorder(border);
+        this.instructionsDialog.setBackground(background);
         this.canvas.setBorder(border);
         this.theme.setBorder(border);
         this.instructions.setBorder(border);
         this.colors.setBorder(border);
         this.characters.setBorder(border);
+        this.execute.setBackground(background);
         this.execute.setBorder(border);
         this.characters.setBorder(border);
         this.commandConsole.setBorder(border);
@@ -350,6 +359,7 @@ public class UserInterface extends JFrame {
         this.instructions.setBackground(background);
         this.characters.setBackground(background);
         this.colors.setBackground(background);
+        this.trash.setBackground(background);
     }
 
     public Canvas getCanvas() {
