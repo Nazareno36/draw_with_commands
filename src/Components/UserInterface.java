@@ -83,12 +83,25 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.5),
                 (int)(this.getHeight() * 0.7)
         );
+        
+        JPanel background_instructions = new JPanel();
+        background_instructions.setBounds(
+                (int)(this.getWidth() * 0.25),
+                (int)(this.getHeight() * 0.15),
+                (int)(this.getWidth() * 0.5),
+                (int)(this.getHeight() * 0.7)
+        );
+        background_instructions.setBackground(Color.white);
+        background_instructions.setLayout(null);
+        background_instructions.setBorder(defaultBorder);
         JButton ok = new JButton("ok");
+        ok.setBorder(defaultBorder);
+        ok.setBackground(new Color(0, 128, 105));
         ok.setBounds(
-                this.instructionsDialog.getWidth()/2 -(int)(this.instructionsDialog.getWidth()*0.05),
-                (int)(this.instructionsDialog.getHeight() * 0.9),
-                (int)(this.instructionsDialog.getWidth() * 0.15),
-                (int)(this.instructionsDialog.getWidth() * 0.05)
+                background_instructions.getWidth()/2 -(int)(background_instructions.getWidth()*0.05),
+                (int)(background_instructions.getHeight() * 0.9),
+                (int)(background_instructions.getWidth() * 0.15),
+                (int)(background_instructions.getWidth() * 0.05)
         );
         ok.addActionListener(new ActionListener() {
             @Override
@@ -102,13 +115,14 @@ public class UserInterface extends JFrame {
 
         JTextArea txtArea = new JTextArea();
         txtArea.setBounds(
-                (int)(this.instructionsDialog.getWidth() * 0.1),
-                (int)(this.instructionsDialog.getHeight() * 0.1),
-                (int)(this.instructionsDialog.getWidth() * 0.8),
-                (int)(this.instructionsDialog.getHeight() * 0.72)
+                (int)(background_instructions.getWidth() * 0.1),
+                (int)(background_instructions.getHeight() * 0.1),
+                (int)(background_instructions.getWidth() * 0.8),
+                (int)(background_instructions.getHeight() * 0.72)
         );
         txtArea.setEditable(false);
         txtArea.setRows(10);
+        txtArea.setBorder(defaultBorder);
         txtArea.setText("\t\t           Instrucciones\t\t\n\n" +
                 "Para Interactuar con el personaje y dibujar en pantalla necesitaras introducir\nlos siguientes comandos en el cuadro de texto bajo el lienzo y luego presionar enter:\n\n\n" +
                 "ad n = El personaje avanza n pasos y dibuja una linea\n\n" +
@@ -120,9 +134,9 @@ public class UserInterface extends JFrame {
                 "lv = Levanta el lapiz para dejar de dibujar\n\n" +
                 "po = Pone el lapiz en el lienzo\n\n" +
                 "tp x y = Teletransporta al personaje a las coordenadas x,y");
-        this.instructionsDialog.setLayout(null);
-        this.instructionsDialog.add(ok);
-        this.instructionsDialog.add(txtArea);
+        background_instructions.add(ok);
+        background_instructions.add(txtArea);
+        this.instructionsDialog.add(background_instructions);
         this.instructionsDialog.setVisible(true);
     }
 
@@ -342,7 +356,7 @@ public class UserInterface extends JFrame {
     private void setAppTheme(Color background, Border border, Color console, Color canvas, Font font, Color fontColor){
         this.background.setBackground(background);
         this.background.setBorder(border);
-        this.instructionsDialog.setBackground(background);
+        this.instructionsDialog.getComponent(0).setBackground(background);
         this.canvas.setBorder(border);
         this.theme.setBorder(border);
         this.instructions.setBorder(border);
