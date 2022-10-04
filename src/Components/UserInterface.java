@@ -19,7 +19,10 @@ public class UserInterface extends JFrame {
     private JButton characters;
     private JButton instructions;
     private JButton trash;
+
+    private JDialog instructionsDialog;
     private Border defaultBorder = BorderFactory.createEtchedBorder(0, new Color(0, 128, 105), new Color(0, 128, 105));
+
     
     public UserInterface(int width, int height){
         this.setSize(width,height);
@@ -39,6 +42,7 @@ public class UserInterface extends JFrame {
         this.characters = new JButton();
         this.instructions = new JButton();
         this.trash = new JButton();
+        this.instructionsDialog = new JDialog(this,false);
     }
 
     private void initComponents() {
@@ -55,6 +59,8 @@ public class UserInterface extends JFrame {
 
         initCharacter();
 
+        initInstructionsDialog();
+
         this.setVisible(true);
     }
 
@@ -64,9 +70,60 @@ public class UserInterface extends JFrame {
     }
 
     private void initBackground(){
-        this.background.setBackground(new Color(204,204,204,255));
+        this.background.setBounds(0,0,this.getWidth(),this.getHeight());
         this.background.setLayout(null);
         this.getContentPane().add(this.background);
+    }
+
+    private void initInstructionsDialog(){
+        this.instructionsDialog.setUndecorated(true);
+        this.instructionsDialog.setBounds(
+                (int)(this.getWidth() * 0.25),
+                (int)(this.getHeight() * 0.15),
+                (int)(this.getWidth() * 0.5),
+                (int)(this.getHeight() * 0.7)
+        );
+        JButton ok = new JButton("ok");
+        ok.setBounds(
+                this.instructionsDialog.getWidth()/2 -(int)(this.instructionsDialog.getWidth()*0.05),
+                (int)(this.instructionsDialog.getHeight() * 0.9),
+                (int)(this.instructionsDialog.getWidth() * 0.15),
+                (int)(this.instructionsDialog.getWidth() * 0.05)
+        );
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == ok){
+                    instructionsDialog.setVisible(false);
+                    instructionsDialog.setEnabled(false);
+                }
+            }
+        });
+
+        JTextArea txtArea = new JTextArea();
+        txtArea.setBounds(
+                (int)(this.instructionsDialog.getWidth() * 0.1),
+                (int)(this.instructionsDialog.getHeight() * 0.1),
+                (int)(this.instructionsDialog.getWidth() * 0.8),
+                (int)(this.instructionsDialog.getHeight() * 0.72)
+        );
+        txtArea.setEditable(false);
+        txtArea.setRows(10);
+        txtArea.setText("\t\t           Instrucciones\t\t\n\n" +
+                "Para Interactuar con el personaje y dibujar en pantalla necesitaras introducir\nlos siguientes comandos en el cuadro de texto bajo el lienzo y luego presionar enter:\n\n\n" +
+                "ad n = El personaje avanza n pasos y dibuja una linea\n\n" +
+                "iz = El personaje gira hacia la izquierda\n\n" +
+                "de = El personaje gira hacia la derecha\n\n" +
+                "cv = Cambia la velocidad del personaje\n\n" +
+                "cl = Borra todo el lapiz en la pantalla\n\n" +
+                "rs = Reinicia el personaje y el dibujo\n\n" +
+                "lv = Levanta el lapiz para dejar de dibujar\n\n" +
+                "po = Pone el lapiz en el lienzo\n\n" +
+                "tp x y = Teletransporta al personaje a las coordenadas x,y");
+        this.instructionsDialog.setLayout(null);
+        this.instructionsDialog.add(ok);
+        this.instructionsDialog.add(txtArea);
+        this.instructionsDialog.setVisible(true);
     }
 
     private void initCommandConsole(){
@@ -78,7 +135,6 @@ public class UserInterface extends JFrame {
                 (int)(this.canvas.getHeight() * 0.2)
         );
         this.commandConsole.setBounds(jsp.getBounds());
-        System.out.println(jsp.getHeight());
         this.background.add(jsp);
     }
 
@@ -117,7 +173,8 @@ public class UserInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == instructions){
-
+                    instructionsDialog.setVisible(true);
+                    instructionsDialog.setEnabled(true);
                 }
             }
         });
