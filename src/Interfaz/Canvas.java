@@ -1,10 +1,12 @@
-package Components;
+package Interfaz;
 
 import Components.*;
-
+import Components.Character;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
+import javax.sound.sampled.Clip;
 
 public class Canvas extends JPanel {
     private Character character;
@@ -43,6 +45,12 @@ public class Canvas extends JPanel {
         int displacement = character.getSpeed() * steps;
         updateCharacter(orientation,displacement);
         if(character.isEnable()) updateDraws(orientation,displacement);
+        else {
+            File soundNoup = AudioManager.get("Noup.wav");
+            Clip clipNoup = AudioManager.createClip(soundNoup);
+            clipNoup.start(); 
+        }
+                
     }
 
     private void updateCharacter(int orientation, int displacement){
@@ -224,6 +232,10 @@ public class Canvas extends JPanel {
         if(!this.character.isEnable() && x < this.getWidth() && x > 0 && y > 0 && y < this.getHeight()){
             this.getCharacter().setxPosition(x);
             this.getCharacter().setyPosition(y);
+        } else {
+            File soundNoup = AudioManager.get("Noup.wav");
+            Clip clipNoup = AudioManager.createClip(soundNoup);
+            clipNoup.start();
         }
     }
 

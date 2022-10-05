@@ -1,11 +1,14 @@
-package Components;
+package Interfaz;
 
+import Components.*;
+import Components.Character;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import javax.sound.sampled.Clip;
+import javax.swing.border.Border;
+import java.awt.event.*;
 
 
 public class UserInterface extends JFrame {
@@ -184,7 +187,7 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625)
         );
         this.instructions.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        ImageIcon wallpaper = new ImageIcon("src/Icons/instructions.png");
+        ImageIcon wallpaper = new ImageIcon("src/Images/Icons/instructions.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.instructions.getWidth(),
                     this.instructions.getHeight(), Image.SCALE_DEFAULT));
         this.instructions.setIcon(icon);
@@ -194,6 +197,9 @@ public class UserInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == instructions){
+                    File sound = AudioManager.get("click.wav");
+                    Clip clip = AudioManager.createClip(sound);
+                    clip.start();
                     instructionsDialog.setVisible(true);
                     instructionsDialog.setEnabled(true);
                 }
@@ -209,7 +215,7 @@ public class UserInterface extends JFrame {
                 (int)(this.canvas.getWidth() * 0.05),
                 (int)(this.canvas.getWidth() * 0.05)
         );
-        ImageIcon wallpaper = new ImageIcon("src/Icons/execute.png");
+        ImageIcon wallpaper = new ImageIcon("src/Images/Icons/execute.png");
         Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.execute.getWidth(),
                 this.execute.getHeight(), Image.SCALE_DEFAULT));
         this.characters.setBackground(this.background.getBackground());
@@ -226,7 +232,7 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625)
         );
         this.colors.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        ImageIcon wallpaper = new ImageIcon("src/Icons/palette_color.png");
+        ImageIcon wallpaper = new ImageIcon("src/Images/Icons/palette_color.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.colors.getWidth(),
                     this.colors.getHeight(), Image.SCALE_DEFAULT));
         this.colors.setIcon(icon);
@@ -236,6 +242,9 @@ public class UserInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == colors){
+                    File sound = AudioManager.get("click.wav");
+                    Clip clip = AudioManager.createClip(sound);
+                    clip.start();
                     JColorChooser colorChooser = new JColorChooser();
                     Color color = JColorChooser.showDialog(null, "Seleccione un color para el lapiz", Color.black);
                     canvas.getCharacter().setColor(color);
@@ -254,7 +263,7 @@ public class UserInterface extends JFrame {
                 (int)(this.getWidth() * 0.0625)
         );
         this.characters.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        ImageIcon wallpaper = new ImageIcon("src/Icons/character.png");
+        ImageIcon wallpaper = new ImageIcon("src/Images/Icons/character.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.characters.getWidth(),
                     this.characters.getHeight(), Image.SCALE_DEFAULT));
         this.characters.setIcon(icon);
@@ -265,6 +274,9 @@ public class UserInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == characters){
+                    File sound = AudioManager.get("click.wav");
+                    Clip clip = AudioManager.createClip(sound);
+                    clip.start();
                     new CharacterChooser(frame);
                 }
             }
@@ -281,7 +293,7 @@ public class UserInterface extends JFrame {
         );
         this.theme.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.theme.setBackground(Color.white);
-        ImageIcon wallpaper = new ImageIcon("src/Icons/light_mode.png");
+        ImageIcon wallpaper = new ImageIcon("src/Images/Icons/light_mode.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.theme.getWidth(),
                     this.theme.getHeight(), Image.SCALE_DEFAULT));
         this.theme.setIcon(icon);
@@ -289,8 +301,12 @@ public class UserInterface extends JFrame {
         this.theme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == theme)
+                if(e.getSource() == theme){
+                    File sound = AudioManager.get("click.wav");
+                    Clip clip = AudioManager.createClip(sound);
+                    clip.start();
                     changeTheme();
+                }
             }
         });
         this.background.add(this.theme);
@@ -298,6 +314,7 @@ public class UserInterface extends JFrame {
 
     private void initTrashButton(){
         this.trash.setBackground(Color.red);
+        this.trash.setBorder(defaultBorder);
         this.trash.setBounds(
                 this.canvas.getX(),
                 (int)(this.getHeight() * 0.78),
@@ -305,7 +322,7 @@ public class UserInterface extends JFrame {
                 (int)(this.canvas.getWidth() * 0.05)
         );
         this.trash.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        ImageIcon wallpaper = new ImageIcon("src/Icons/trash.png");
+        ImageIcon wallpaper = new ImageIcon("src/Images/Icons/trash.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.trash.getWidth(),
                     this.trash.getHeight(), Image.SCALE_DEFAULT));
         this.trash.setIcon(icon);
@@ -313,8 +330,13 @@ public class UserInterface extends JFrame {
         this.trash.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == trash)
+                if(e.getSource() == trash){
                     commandConsole.setText("");
+                    File sound = AudioManager.get("trash.wav");
+                    Clip clip = AudioManager.createClip(sound);
+                    clip.start();
+                }
+                    
             }
         });
         this.background.add(this.trash);
@@ -335,7 +357,7 @@ public class UserInterface extends JFrame {
         if(this.background.getBackground() == Color.white){
             setAppTheme(new Color(17, 30, 39), BorderFactory.createEtchedBorder(0, new Color(8, 186, 162), new Color(8, 186, 162))
                     ,new Color(32, 45, 54), this.canvas.getBackground(), new Font("Monospaced", 1, 12),new Color(167, 175, 177));
-            ImageIcon wallpaper = new ImageIcon("src/Icons/dark_mode.png");
+            ImageIcon wallpaper = new ImageIcon("src/Images/Icons/dark_mode.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.theme.getWidth(),
                     this.theme.getHeight(), Image.SCALE_DEFAULT));
             this.theme.setIcon(icon);
@@ -344,7 +366,7 @@ public class UserInterface extends JFrame {
         }else{
             setAppTheme(Color.white, defaultBorder, new Color(0, 128, 105), this.canvas.getBackground(), 
                     new Font("Monospaced", 1, 12), new Color(255, 254, 255));
-            ImageIcon wallpaper = new ImageIcon("src/Icons/light_mode.png");
+            ImageIcon wallpaper = new ImageIcon("src/Images/Icons/light_mode.png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(this.theme.getWidth(),
                     this.theme.getHeight(), Image.SCALE_DEFAULT));
             this.theme.setIcon(icon);
@@ -374,6 +396,7 @@ public class UserInterface extends JFrame {
         this.characters.setBackground(background);
         this.colors.setBackground(background);
         this.trash.setBackground(background);
+        this.trash.setBorder(border);
     }
 
     public Canvas getCanvas() {

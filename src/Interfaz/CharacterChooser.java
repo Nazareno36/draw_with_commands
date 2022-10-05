@@ -1,15 +1,10 @@
-package Components;
+package Interfaz;
+
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 public class CharacterChooser extends JDialog{
     
@@ -48,7 +43,7 @@ public class CharacterChooser extends JDialog{
     }
     
     private void initCharactersButtons(){
-        File carpeta = new File("src/Sprites"); 
+        File carpeta = new File("src/Images/Sprites"); 
         File[] list = carpeta.listFiles();
         this.background.setLayout(new GridLayout(4,list.length/4));
         for (File file : list) {
@@ -58,7 +53,7 @@ public class CharacterChooser extends JDialog{
             String name = file.getName();
             button.setName(name);
             
-            ImageIcon wallpaper = new ImageIcon("src/Sprites/"+ name +"/down_" + name + ".png");
+            ImageIcon wallpaper = new ImageIcon("src/Images/Sprites/"+ name +"/down_" + name + ".png");
             Icon icon = new ImageIcon(wallpaper.getImage().getScaledInstance(button.getWidth(),
                     button.getHeight(), Image.SCALE_DEFAULT));
             button.setIcon(icon);

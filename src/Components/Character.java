@@ -93,15 +93,15 @@ public class Character {
         String ruta_up;
         
         if(this.enable){
-            ruta_down = "src/Sprites/"+ carpet +"/down_" + carpet + ".png";
-            ruta_left = "src/Sprites/"+ carpet +"/left_" + carpet + ".png";
-            ruta_right = "src/Sprites/"+ carpet +"/right_" + carpet + ".png";
-            ruta_up = "src/Sprites/"+ carpet +"/up_" + carpet + ".png";
+            ruta_down = "src/Images/Sprites/"+ carpet +"/down_" + carpet + ".png";
+            ruta_left = "src/Images/Sprites/"+ carpet +"/left_" + carpet + ".png";
+            ruta_right = "src/Images/Sprites/"+ carpet +"/right_" + carpet + ".png";
+            ruta_up = "src/Images/Sprites/"+ carpet +"/up_" + carpet + ".png";
         } else {
-            ruta_down = "src/Sprites/"+ carpet +"/disable_down_" + carpet + ".png";
-            ruta_left = "src/Sprites/"+ carpet +"/disable_left_" + carpet + ".png";
-            ruta_right = "src/Sprites/"+ carpet +"/disable_right_" + carpet + ".png";
-            ruta_up = "src/Sprites/"+ carpet +"/disable_up_" + carpet + ".png"; 
+            ruta_down = "src/Images/Sprites/"+ carpet +"/disable_down_" + carpet + ".png";
+            ruta_left = "src/Images/Sprites/"+ carpet +"/disable_left_" + carpet + ".png";
+            ruta_right = "src/Images/Sprites/"+ carpet +"/disable_right_" + carpet + ".png";
+            ruta_up = "src/Images/Sprites/"+ carpet +"/disable_up_" + carpet + ".png"; 
         }
         
         Toolkit t_down = Toolkit.getDefaultToolkit();
