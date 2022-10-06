@@ -100,6 +100,7 @@ public class UserInterface extends JFrame {
         JButton ok = new JButton("ok");
         ok.setBorder(defaultBorder);
         ok.setBackground(new Color(0, 128, 105));
+        ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
         ok.setBounds(
                 background_instructions.getWidth()/2 -(int)(background_instructions.getWidth()*0.05),
                 (int)(background_instructions.getHeight() * 0.9),
@@ -110,6 +111,9 @@ public class UserInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == ok){
+                    File sound = AudioManager.get("click.wav");
+                    Clip clip = AudioManager.createClip(sound);
+                    clip.start();
                     instructionsDialog.setVisible(false);
                     instructionsDialog.setEnabled(false);
                 }

@@ -21,8 +21,8 @@ public class App {
     public App(){
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension screenSize = t.getScreenSize();
-        this.gui = new UserInterface(screenSize.width, screenSize.height);
         AudioManager.loadAudio();
+        this.gui = new UserInterface(screenSize.width, screenSize.height);
         initActionsListeners();
     }
 

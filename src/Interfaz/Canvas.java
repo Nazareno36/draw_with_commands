@@ -45,11 +45,6 @@ public class Canvas extends JPanel {
         int displacement = character.getSpeed() * steps;
         updateCharacter(orientation,displacement);
         if(character.isEnable()) updateDraws(orientation,displacement);
-        else {
-            File soundNoup = AudioManager.get("Noup.wav");
-            Clip clipNoup = AudioManager.createClip(soundNoup);
-            clipNoup.start(); 
-        }
                 
     }
 
